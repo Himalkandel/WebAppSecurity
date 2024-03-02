@@ -1,20 +1,24 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import './App.css';
 import Login from './Login';
-import Fact from './Fact';
-import Logout from './Logout';
+// Uncomment these once you're ready to use them
+// import Fact from './Fact';
+// import Logout from './Logout';
 
 function App() {
-    //const [token, setToken] = React.useState('');
+    const [token, setToken] = useState(null);
 
     return (
         <div className="app">
-            {/* Display login form if token is not set. */}
-            <Login />
-
-            {/* Display fact and logout if token is set. */}
-            {/*<Fact />*/}
+            {!token ? (
+                <Login setToken={setToken} />
+            ) : (
+                <>
+                    {/* Uncomment and use Fact component when it's ready */}
+                    {/* <Fact token={token} /> */}
+                    {/* <Logout /> */}
+                </>
+            )}
         </div>
     );
 }

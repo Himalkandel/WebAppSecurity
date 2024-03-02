@@ -1,23 +1,32 @@
 import React from 'react';
 
-function Logout({ }) {
-	const handleLogout = async (e) => {
-		e.preventDefault();
+function Logout({ onLogout }) {
+    const handleLogout = async (e) => {
+        e.preventDefault();
 
-		// Send request to /logout API endpoint
+        try {
+            const response = await fetch('http://localhost:3333/logout', {
+                method: 'POST',
+                headers: {
+                },
+            });
 
-		// Call onLogout with API message as input.
+            if (!response.ok) {
+                throw new Error('Logout failed');
+            }
 
-		// Parent App component needs to notified that logout has occurred.
-	};
+            // If logout was successful, call onLogout to update the parent component's state
+            onLogout();
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
 
-	return (
-		<>
-			<button onClick={handleLogout}>
-				Logout
-			</button>
-		</>
-	);
+    return (
+        <button onClick={handleLogout}>
+            Logout
+        </button>
+    );
 }
 
 export default Logout;
